@@ -96,7 +96,7 @@ const CoinDetailedScreen = () => {
       return `$${current_price.usd.toFixed(2)}`;
     }
     if (current_price.usd < 1) {
-      return `$${parseFloat(value)}`;
+      return `$${parseFloat(value).toFixed(6)}`;
     }
     return `$${parseFloat(value).toFixed(2)}`;
   };

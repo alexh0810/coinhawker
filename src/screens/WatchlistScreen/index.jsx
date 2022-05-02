@@ -29,7 +29,7 @@ const WatchlistScreen = () => {
   }, [watchlistCoinIds]);
 
   return (
-    <FlatList 
+    watchlistCoinIds.length > 0 ? <FlatList 
       data={coins}
       renderItem={({ item }) => <CoinItem marketCoin={item} />}
       refreshControl={
@@ -40,7 +40,8 @@ const WatchlistScreen = () => {
         />
       }
     />
-  )
+    : null
+  ) 
 };
 
 export default WatchlistScreen;
