@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CryptoPriceTracker",
-    "slug": "CryptoPriceTracker",
+    "name": "CoinHawker",
+    "slug": "CoinHawker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

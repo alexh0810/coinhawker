@@ -6,6 +6,8 @@ import AddNewAssetScreen from "../screens/AddNewAssetScreen";
 
 const Stack = createNativeStackNavigator();
 
+// Create navigation for each screen
+
 const Navigation = () => {
   return (
     <Stack.Navigator initialRouteName="Root">

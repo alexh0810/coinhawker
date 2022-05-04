@@ -22,6 +22,8 @@ import {
 } from "../../services/requests";
 import FilterComponent from "./components/FilterComponent";
 
+// Coin detailed information screen, including price chart and a converter
+
 const filterDaysArray = [
   { filterDay: "1", filterText: "24h" },
   { filterDay: "7", filterText: "7d" },
@@ -87,8 +89,11 @@ const CoinDetailedScreen = () => {
   const chartColor = current_price.usd > prices[0][1] ? "#16c784" : "#ea3943";
   const screenWidth = Dimensions.get("window").width;
 
+  // Function to format the current price to show at each given point in the chart
+
   const formatCurrency = (value) => {
-    "worklet";
+    "worklet"; // Reanimated worklet for formatting data provided by library
+    // Checking if the value is at the starting point (showing current price)
     if (value === "") {
       if (current_price.usd < 1) {
         return `$${current_price.usd}`;
@@ -101,12 +106,14 @@ const CoinDetailedScreen = () => {
     return `$${parseFloat(value).toFixed(2)}`;
   };
 
+  // Function to change crypto coin currency to USD
   const changeCoinValue = (value) => {
     setCoinValue(value);
     const floatValue = parseFloat(value.replace(",", ".")) || 0;
     setUsdValue((floatValue * current_price.usd).toString());
   };
 
+  // Function to change USD to crypto coin currency
   const changeUsdValue = (value) => {
     setUsdValue(value);
     const floatValue = parseFloat(value.replace(",", ".")) || 0;
@@ -120,6 +127,7 @@ const CoinDetailedScreen = () => {
 
   return (
     <View style={{ paddingHorizontal: 10 }}>
+      {/* Wrapping everything in ChartPathProvider*/}
       <ChartPathProvider
         data={{
           points: prices.map(([x, y]) => ({ x, y })),
@@ -134,8 +142,10 @@ const CoinDetailedScreen = () => {
         <View style={styles.priceContainer}>
           <View>
             <Text style={styles.name}>{name}</Text>
+            {/*Label used to traverse the 'dot' through the chart to show the exact value in given point*/}
             <ChartYLabel format={formatCurrency} style={styles.currentPrice} />
           </View>
+          {/*Price change percentage*/}
           <View
             style={{
               backgroundColor: percentageColor,
@@ -156,6 +166,7 @@ const CoinDetailedScreen = () => {
             </Text>
           </View>
         </View>
+        {/*Filter by timeframe bar*/}
         <View style={styles.filtersContainer}>
           {filterDaysArray.map((day) => (
             <FilterComponent
@@ -188,7 +199,7 @@ const CoinDetailedScreen = () => {
               onChangeText={changeCoinValue}
             />
           </View>
-
+          {/* Price converter*/}
           <View style={{ flexDirection: "row", flex: 1 }}>
             <Text style={{ color: "white", alignSelf: "center" }}>USD</Text>
             <TextInput

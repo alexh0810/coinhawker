@@ -3,6 +3,7 @@ import { View, Text, Image } from "react-native";
 import styles from "./styles";
 import { AntDesign } from "@expo/vector-icons";
 
+// Component for each portfolio assets item 
 const PortfolioAssetsItem = ({ assetItem }) => {
   const {
     currentPrice,
@@ -12,9 +13,11 @@ const PortfolioAssetsItem = ({ assetItem }) => {
     quantityBought,
     ticker,
   } = assetItem;
-
+  
+  // Function to check whether change percentage is positive 
   const isChangePositive = () => priceChangePercentage >= 0;
 
+  //Function to show the holdings balance of each coin
   const renderHoldings = () => (quantityBought * currentPrice).toFixed(2)
 
   return (

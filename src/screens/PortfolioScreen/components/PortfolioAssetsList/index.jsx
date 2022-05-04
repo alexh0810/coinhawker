@@ -11,8 +11,9 @@ import {
 } from "../../../../atoms/PortfolioAssets";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { FontAwesome } from "@expo/vector-icons";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// Portfolio screen where assets list is rendered
 const PortfolioAssetsList = () => {
   const navigation = useNavigation();
   const assets = useRecoilValue(allPortfolioAssets);
@@ -20,6 +21,7 @@ const PortfolioAssetsList = () => {
     allPortfolioBoughtAssetsInStorage
   );
 
+  // Function to get current balance of portfolio
   const getCurrentBalance = () =>
     assets.reduce(
       (total, currentAsset) =>
@@ -27,6 +29,7 @@ const PortfolioAssetsList = () => {
       0
     );
 
+  // Function to get current value change of portfolio
   const getCurrentValueChange = () => {
     const currentBalance = getCurrentBalance();
     const boughtBalance = assets.reduce(
@@ -38,6 +41,7 @@ const PortfolioAssetsList = () => {
     return (currentBalance - boughtBalance).toFixed(2);
   };
 
+  // Function to get percentage change of portfolio
   const getCurrentPercentageChange = () => {
     const currentBalance = getCurrentBalance();
     const boughtBalance = assets.reduce(
@@ -50,10 +54,13 @@ const PortfolioAssetsList = () => {
     );
   };
 
+  // Deleting an asset from portfolio
   const onDeleteAsset = async (asset) => {
-    const newAssets = storageAssets.filter((coin) => coin.unique_id !== asset.item.unique_id)
+    const newAssets = storageAssets.filter(
+      (coin) => coin.unique_id !== asset.item.unique_id
+    );
     const jsonValue = JSON.stringify(newAssets);
-    await AsyncStorage.setItem("@portfolio_coins", jsonValue)
+    await AsyncStorage.setItem("@portfolio_coins", jsonValue);
     setStorageAssets(newAssets);
   };
 
@@ -78,13 +85,14 @@ const PortfolioAssetsList = () => {
   const isChangePositive = () => getCurrentValueChange() >= 0;
 
   return (
+    // Using swipelistview to render delete button on each row
     <SwipeListView
       data={assets}
       renderItem={({ item }) => <PortfolioAssetsItem assetItem={item} />}
       rightOpenValue={-75}
       disableRightSwipe
       closeOnRowPress
-      keyExtractor={({id}, index) => `${id}${index}`}
+      keyExtractor={({ id }, index) => `${id}${index}`}
       renderHiddenItem={(data) => renderDeleteButton(data)}
       ListHeaderComponent={
         <>

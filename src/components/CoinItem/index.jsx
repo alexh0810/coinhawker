@@ -4,6 +4,8 @@ import { AntDesign } from "@expo/vector-icons";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
+// Component to render individual coin item 
+
 const CoinItem = ({ marketCoin }) => {
   const {
     id,
@@ -18,9 +20,14 @@ const CoinItem = ({ marketCoin }) => {
 
   const navigation = useNavigation();
 
+
+  // Change the percentage color based on the price_change_percentage in 24h
+
   const percentageColor =
     price_change_percentage_24h < 0 ? "#ea3943" : "#16c784" || 'white';
-
+  
+  // Configurate the marketCap data 
+  
   const normalizeMarketCap = (marketCap) => {
     if (marketCap > 1e12) {
       return `${(marketCap / 1e12).toFixed(3)} T`;

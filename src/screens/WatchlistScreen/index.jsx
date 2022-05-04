@@ -4,6 +4,8 @@ import { useWatchlist } from '../../Contexts/WatchlistContext';
 import CoinItem from '../../components/CoinItem';
 import { getWatchlistedCoins } from '../../services/requests';
 
+// Watchlist screen to show all favorite coins 
+
 const WatchlistScreen = () => {
   const {watchlistCoinIds} = useWatchlist();
 

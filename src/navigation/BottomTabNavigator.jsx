@@ -6,10 +6,11 @@ import PortfolioScreen from "../screens/PortfolioScreen";
 import { Entypo, FontAwesome, Foundation } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
-
+// Custom bottom tab bar navigator 
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
+    // Initial route will be Home by default
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,
@@ -25,6 +26,7 @@ const BottomTabNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
+            // Show icon in a bigger size whenever that screen is active 
             <Entypo name="home" size={focused ? 30 : 25} color={color} />
           ),
         }}

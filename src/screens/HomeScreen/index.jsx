@@ -3,10 +3,15 @@ import { FlatList, RefreshControl, View, Text } from "react-native";
 import CoinItem from "../../components/CoinItem";
 import { getMarketData } from "../../services/requests";
 
+// Home view to show all coins data 
+
 const HomeScreen = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  /*Fetching all coins data (default page number is 1, whenever reaching the end of the screen, this function), 
+  this function is called again with new page number
+  */
   const fetchCoins = async (pageNumber) => {
     if (loading) {
       return;
@@ -16,7 +21,8 @@ const HomeScreen = () => {
     setCoins((existingCoins) => [...existingCoins, ...coinsData]);
     setLoading(false);
   };
-
+  
+  // Refetch coins data if the page refreshes
   const refetchCoins = async () => {
     if (loading) {
       return;
@@ -51,11 +57,13 @@ const HomeScreen = () => {
       <FlatList
         data={coins}
         renderItem={({ item }) => <CoinItem marketCoin={item} />}
+        // Pagination: whenever reaching the end of the screen, make an API call to fetch data of the next page
         onEndReached={() => fetchCoins(coins.length / 50 + 1)}
         refreshControl={
           <RefreshControl
             refreshing={loading}
             tintColor="white"
+            // Refetch data whenever the screen refreshes
             onRefresh={refetchCoins}
           />
         }

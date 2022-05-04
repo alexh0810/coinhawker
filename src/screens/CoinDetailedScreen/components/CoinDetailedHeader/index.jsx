@@ -5,6 +5,7 @@ import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { useWatchlist } from "../../../../Contexts/WatchlistContext";
 
+// Header of coin individual profile
 const CoinDetailedHeader = (props) => {
   const { coinId, image, symbol, marketCapRank } = props;
   const navigation = useNavigation();
